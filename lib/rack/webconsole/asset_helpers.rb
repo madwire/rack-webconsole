@@ -44,10 +44,29 @@ module Rack
           '</script>'
       end
 
+      # Inteprolates the given variables inside the javascrpt code
+      #
+      # @param [String] javascript The javascript code to insert the variables
+      # @param [Hash] variables A hash containing the variables names (as keys)
+      # and its values
+      #
+      # @return [String] the javascript code with the interpolated variables
+      def render(javascript, variables = {})
+        javascript_with_variables = javascript.dup
+        variables.each_pair do |variable, value|
+          javascript_with_variables.gsub!("$#{variable}", value)
+        end
+        javascript_with_variables
+      end
+
       private
 
       def asset(file)
-        ::File.read(::File.join(::File.dirname(__FILE__), '..', '..', '..', 'public', file))
+        @assets ||= {}
+        output = ::File.open(::File.join(::File.dirname(__FILE__), '..', '..', '..', 'public', file), 'r:UTF-8') do |f|
+          f.read
+        end
+        @assets[file] ||= output
       end
     end
   end

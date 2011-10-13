@@ -21,6 +21,13 @@ module Rack
         $sandbox = Sandbox.new
         'ok'
       end
+
+      # Returns the current page request object for inspection purposes.
+      #
+      # @return [Rack::Request] the current page request object.
+      def request
+        Webconsole::Repl.request
+      end
     end
   end
 end

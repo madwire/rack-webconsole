@@ -14,17 +14,23 @@ Gem::Specification.new do |s|
   s.rubyforge_project = "rack-webconsole"
 
   s.add_runtime_dependency 'rack'
-  s.add_runtime_dependency 'json'
+  s.add_runtime_dependency 'multi_json', '~> 1.0.3'
+  s.add_runtime_dependency 'ripl', '~> 0.5.1'
+  s.add_runtime_dependency 'ripl-multi_line', '~> 0.3.0'
 
   s.add_development_dependency 'minitest'
   s.add_development_dependency 'purdytest'
-  s.add_development_dependency 'mocha'
+
+  # Since we can't have a git dependency in gemspec, we specify this
+  # dependency directly in the Gemfile. Once a new mocha version is released,
+  # we should uncomment this line and remove mocha from the Gemfile.
+  # s.add_development_dependency 'mocha'
+
   s.add_development_dependency 'yard'
   s.add_development_dependency 'bluecloth'
   s.add_development_dependency 'rake'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 end
